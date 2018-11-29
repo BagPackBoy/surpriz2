@@ -18,7 +18,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 public class MainActivity extends AppCompatActivity {
 
     private EditText etUsername;
@@ -58,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         });
 
@@ -66,12 +64,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void loginUser(JSONObject pojo) {
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-        String url = "http://192.168.0.198:9091/auth";
+        String url = "http://35.232.92.229:8080/surprise/auth";
+        System.out.println("My Url==============>"+url);
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.POST, url, pojo, new Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        System.out.println("Res==============>"+response.toString());
                         tvResponse.setText(response.toString());
                     }
                 }, new Response.ErrorListener() {
@@ -83,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-
+        System.out.println("Before queue");
         queue.add(jsObjRequest);
-
+        System.out.println("AFTER QUEUE");
     }
 }
 
