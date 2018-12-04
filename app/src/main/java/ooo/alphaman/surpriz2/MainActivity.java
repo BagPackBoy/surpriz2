@@ -53,7 +53,30 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 try {
-                    loginUser(pojoJSON);
+                    /*loginUser(pojoJSON);*/
+                    RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+                    String url = "http://35.232.92.229:8080/surprise/auth";
+                    System.out.println("My Url==============>" + url);
+                    JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                            (Request.Method.POST, url, pojoJSON, new Listener<JSONObject>() {
+
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    System.out.println("Res==============>" + response.toString());
+                                    tvResponse.setText(response.toString());
+                                }
+                            }, new Response.ErrorListener() {
+
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    // TODO Auto-generated method stub
+                                    tvResponse.setText("Response: Error" + error);
+
+                                }
+                            });
+                    System.out.println("Before queue");
+                    queue.add(jsObjRequest);
+                    System.out.println("AFTER QUEUE");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -61,63 +84,4 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-    private void loginUser(JSONObject pojo) {
-        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-        String url = "http://35.232.92.229:8080/surprise/auth";
-        System.out.println("My Url==============>"+url);
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.POST, url, pojo, new Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        System.out.println("Res==============>"+response.toString());
-                        tvResponse.setText(response.toString());
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
-                        tvResponse.setText("Response: Error" + error);
-
-                    }
-                });
-        System.out.println("Before queue");
-        queue.add(jsObjRequest);
-        System.out.println("AFTER QUEUE");
-    }
 }
-
-/*        //Volley
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://192.168.0.198:9091/auth";
-
-        JSONObject requestPojo=new JSONObject();
-        requestPojo.put("mobile",pojo.getMobile());
-        requestPojo.put("password",pojo.getPassword());
-
-        StringRequest stringRequest = new StringRequest(POST, url,requestPojo, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject jsonObject) {
-
-               System.out.println(jsonObject);
-
-            }
-        }, new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                tvResponse.setText("That didnt work");
-            }
-        }) {
-            //adding parameters to the request
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("mobile", pojo.getMobile());
-                params.put("password", pojo.getPassword());
-                return params;
-            }
-        };
-        queue.add(stringRequest);
-        }*/

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="serverProtocol">http://</string>
+    <string name="serverIP">35.232.92.229</string>
+    <string name="serverPort">8080</string>
+    <string name="serverApp">surprise</string>
+    <string name="serverEndpointAuth">auth</string>
+</resources>
