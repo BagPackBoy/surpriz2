@@ -1,4 +1,4 @@
-package ooo.alphaman.surpriz2;
+package ooo.alphaman.surpriz2.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +17,8 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import ooo.alphaman.surpriz2.R;
 
 public class MainActivity extends AppCompatActivity {
 
